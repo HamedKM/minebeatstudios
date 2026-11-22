@@ -239,9 +239,9 @@ const PROJECTS = [
   { name: "EgoShot", cats: ["Games"], kind: "Basket 3D multijoueur", status: "dev",
     desc: "Un jeu de tirs au panier en 3D où jusqu'à 10 joueurs s'affrontent, en local ou en ligne chacun sur son téléphone, avec des Jokers pour pimenter la partie.",
     links: { site: "/egoshot/", appStore: "soon", playStore: "soon" } },
-  { name: "Neo", logo: "neo", cats: [], kind: "", status: "soon", desc: "", links: {} },
-  { name: "Clochette", logo: "clochette", cats: [], kind: "", status: "soon", desc: "", links: {} },
-  { name: "2.0", cats: [], kind: "", status: "soon", desc: "", links: {} },
+  { name: "Neo", logo: "neo", cats: ["Clubs"], kind: "", status: "soon", desc: "", links: {} },
+  { name: "Clochette", logo: "clochette", cats: ["Clubs"], kind: "", status: "soon", desc: "", links: {} },
+  { name: "deux.points.zéro", mono: "2.0", cats: ["Clubs"], kind: "2.0", status: "soon", desc: "", links: {} },
   { name: "Paradisme", cats: ["Games"], kind: "Quiz multijoueur", status: "live",
     desc: "Le quiz où toutes les réponses sont des nombres : celui qui tombe le plus près gagne. À jouer entre amis, chacun sur son téléphone et dans sa langue.",
     links: { site: "https://paradisme.pages.dev", appStore: "soon", playStore: "soon" } },
@@ -273,7 +273,7 @@ function render() {
     ).join("");
     const tile = p.logo && LOGOS[p.logo]
       ? `<div class="tile t-${p.logo}"><img src="${LOGOS[p.logo]}" alt="Logo ${esc(p.name)}"></div>`
-      : `<div class="tile"><span class="mono" aria-hidden="true">${esc(p.name.charAt(0))}</span></div>`;
+      : `<div class="tile"><span class="mono" aria-hidden="true">${esc(p.mono || p.name.charAt(0))}</span></div>`;
     return `<li class="item">
       <div class="mark">${tile}<span class="ref">${p.ref}</span></div>
       <div>
