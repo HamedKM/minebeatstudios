@@ -141,6 +141,34 @@ img { max-width: 100%; display: block; }
 .links a::after { content: " ↗"; color: var(--magenta); }
 .links .off { color: var(--muted); border-style: dashed; }
 .cover { width: 100%; max-width: 620px; aspect-ratio: 2576 / 1140; object-fit: cover; border-radius: 14px; margin-top: 16px; border: 1px solid var(--line); }
+.bar-right { display: flex; align-items: center; gap: 14px; }
+.views { display: flex; border: 1px solid var(--line); border-radius: 999px; padding: 3px; }
+.views button {
+  font: 500 12px/1 var(--font-mono); letter-spacing: .03em; color: var(--muted); background: transparent;
+  border: 0; padding: 7px 11px; border-radius: 999px; cursor: pointer;
+}
+.views button:hover { color: var(--paper); }
+.views button[aria-pressed="true"] { background: var(--panel); color: var(--paper); }
+@media (min-width: 721px) {
+  .catalog.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; padding: 28px 0 8px; }
+  .catalog.cards .item {
+    display: flex; flex-direction: column; gap: 14px; padding: 22px; border: 1px solid var(--line); border-radius: 20px;
+    background: linear-gradient(180deg, rgba(255,255,255,.025), transparent 60%), var(--panel);
+    transition: border-color .2s, transform .2s;
+  }
+  .catalog.cards .item:hover { border-color: rgba(229,20,95,.55); transform: translateY(-2px); }
+  .catalog.cards .mark { flex-direction: row; align-items: center; justify-content: space-between; }
+  .catalog.cards .tile { width: 72px; height: 72px; border-radius: 16px; }
+  .catalog.cards .tile .mono { font-size: 30px; }
+  .catalog.cards .name { font-size: 30px; margin-top: 0; }
+  .catalog.cards .desc { font-size: 15px; }
+  .catalog.cards .cover { max-width: 100%; }
+  .catalog.cards .side { flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: space-between; padding-top: 4px; margin-top: auto; }
+  .catalog.cards .links { justify-content: flex-start; }
+  .catalog.cards .links a, .catalog.cards .links .off { font-size: 13px; padding: 9px 12px; }
+  .catalog.cards .empty { grid-column: 1 / -1; }
+}
+@media (max-width: 720px) { .views { display: none; } .bar-right { display: none; } }
 .empty { padding: 40px 0; color: var(--muted); }
 
 footer {
@@ -188,7 +216,13 @@ footer img { height: 28px; width: auto; opacity: .8; }
       <button type="button" id="f-soon" data-f="soon" aria-pressed="false">À venir</button>
       <button type="button" id="f-clear" class="clear" hidden>Tout afficher</button>
     </div>
-    <span class="count" id="count"></span>
+    <div class="bar-right">
+      <span class="count" id="count"></span>
+      <div class="views" role="group" aria-label="Affichage">
+        <button type="button" id="v-list" data-v="list" aria-pressed="true" title="Liste">☰ Liste</button>
+        <button type="button" id="v-cards" data-v="cards" aria-pressed="false" title="Cartes">▦ Cartes</button>
+      </div>
+    </div>
   </div>
 
   <ol class="catalog" id="catalog"></ol>
@@ -313,6 +347,21 @@ clearBtn.addEventListener("click", () => {
   render();
 });
 render();
+
+/* Affichage liste / cartes (ordinateur), choix retenu dans ce navigateur */
+(function () {
+  const list = document.getElementById("catalog");
+  const btns = document.querySelectorAll(".views button");
+  function setView(v) {
+    list.classList.toggle("cards", v === "cards");
+    btns.forEach(b => b.setAttribute("aria-pressed", b.dataset.v === v ? "true" : "false"));
+    try { localStorage.setItem("mbs-view", v); } catch (e) {}
+  }
+  let saved = "list";
+  try { saved = localStorage.getItem("mbs-view") || "list"; } catch (e) {}
+  setView(saved);
+  btns.forEach(b => b.addEventListener("click", () => setView(b.dataset.v)));
+})();
 
 /* Égaliseur aux barres arrondies, avec le point du logo au-dessus de certaines barres */
 (function () {
