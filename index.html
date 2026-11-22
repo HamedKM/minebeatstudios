@@ -208,6 +208,7 @@ footer img { height: 28px; width: auto; opacity: .8; }
   <div class="bar">
     <div class="filters" role="group" aria-label="Filtrer les projets">
       <button type="button" id="f-art" data-f="Art & Entertainment" aria-pressed="false">Art &amp; Entertainment</button>
+      <button type="button" id="f-artists" data-f="Artists" aria-pressed="false">Artists</button>
       <button type="button" id="f-management" data-f="Management" aria-pressed="false">Management</button>
       <button type="button" id="f-games" data-f="Games" aria-pressed="false">Games</button>
       <button type="button" id="f-brands" data-f="Brands" aria-pressed="false">Brands</button>
@@ -242,7 +243,7 @@ const LOGOS = { clochette: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARgAAA
    LISTE DES PROJETS — le seul endroit à modifier pour mettre le site à jour.
      status : "live" (en ligne) | "dev" (en développement) | "soon" (à venir)
      cats   : filtres où apparaît le projet (plusieurs possibles) :
-              "Art & Entertainment", "Management", "Games", "Brands", "Clubs", "Events"
+              "Art & Entertainment", "Artists", "Management", "Games", "Brands", "Clubs", "Events"
      kind   : sous-titre court (Jeu, Mode, Musique…) ou "" si pas encore définie
      desc   : présentation ; "" affiche « Présentation à venir »
      logo   : clé dans LOGOS ci-dessus, sinon la première lettre s'affiche
@@ -265,10 +266,10 @@ const PROJECTS = [
   { name: "Sublimenol", logo: "sublimenol", cats: ["Art & Entertainment", "Events"], kind: "Label & soirées", status: "live",
     desc: "Label de musique électronique sur lequel sont sortis plusieurs titres de Vulum, et soirées, notamment au Steps Club de Sousse.",
     links: {} },
-  { name: "Vulum", cats: ["Art & Entertainment"], kind: "DJ & producteur", status: "live",
+  { name: "Vulum", cats: ["Art & Entertainment", "Artists"], kind: "DJ & producteur", status: "live",
     desc: "DJ et producteur de Sousse, entre deep house, tech house et techno, membre fondateur du collectif Kolok.",
     links: { beatport: "https://www.beatport.com/artist/vulum/867154" } },
-  { name: "Saray", cats: ["Art & Entertainment"], kind: "DJ", status: "live",
+  { name: "Saray", cats: ["Art & Entertainment", "Artists"], kind: "DJ", status: "live",
     desc: "DJ de musique électronique, membre du collectif Kolok, souvent en duo avec Vulum à Sousse et à Tunis.",
     links: {} },
   { name: "QuietSense", logo: "quietsense", cats: ["Brands"], kind: "Capes & kimonos", status: "live",
